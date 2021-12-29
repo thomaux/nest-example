@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { ClientProxyFactory, Transport } from "@nestjs/microservices";
-import { HOST, PORT, TEST_SERVICE } from "../../common/constants";
+import { REDIS_URL, TEST_SERVICE } from "../../common/constants";
 import { ClientService } from "./client.service";
 
 @Module({
@@ -8,10 +8,9 @@ import { ClientService } from "./client.service";
         {
             provide: TEST_SERVICE,
             useFactory: () => ClientProxyFactory.create({
-                transport: Transport.TCP,
+                transport: Transport.REDIS,
                 options: {
-                    host: HOST,
-                    port: PORT
+                    url: REDIS_URL
                 }
             })
         },
